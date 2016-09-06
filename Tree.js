@@ -69,26 +69,27 @@ BTTree.prototype.contains = function(value){
 
 
 /*
+2 ways of realization, I would recommend the inorder one
 usage: i.e. 
 function testfunc(){
 	console.log(this.data)
 }
-do tree.traversePreOrder( testfunc );
+do tree.traversePreOrder( testfunc, true );
 */
 
 BTNode.prototype.traverseInOrderNode = function(foo, bind){
 	if (this.lchild)
 		this.lchild.traverseInOrderNode(foo, bind);
 	
-	if (bind)	foo.call(this);
-	else		foo();
+	if (bind && this)   foo.call(this); 
+	else if( this ) 	foo(); 
 
 	if (this.rchild)
 		this.rchild.traverseInOrderNode(foo, bind);
 }
 
 BTTree.prototype.traverseInOrder = function(foo, bind){
-	this.root.traverseInOrderNode(foo,bind);
+	return this.root.traverseInOrderNode(foo,bind);
 }
 
 
@@ -122,21 +123,16 @@ BTTree.prototype.traversePostOrder = function(foo, bind){
 
 
 
+
 /*use traverse we can do a lot of things here*/
 BTTree.prototype.size = function(){
-	var len = 0;
+	var len = -1;
 	function calSize(){
-		console.log(len);
 		return len++;
 	}
-	len = this.root.traverseInOrderNode(calSize, false);
+	this.root.traverseInOrderNode(calSize, false);
 	return len;
 }
-
-//anyway。。。呜呜呜，多return 了一个undefined不知道是怎么一回事
-
-
-
 
 
 

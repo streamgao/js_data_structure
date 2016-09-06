@@ -1,3 +1,5 @@
+/*Created by Stream Gao at 09-04-2016*/
+
 const ERROR = false;
 const SUCCEED = true;
 

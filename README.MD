@@ -23,6 +23,10 @@ liset.reverse(); //reverse the linkedlist
 
 
 
+
+
+
+
 var list = new DoubleLinkedList();
 
 list.add(1);//add from the head

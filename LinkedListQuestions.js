@@ -66,7 +66,6 @@ function ifLoopContainDuplicate(list){
 		var detect = loopBegin.next;
 
 		for (var i = 0; i < len; i++) {
-			
 			var duplicate = (function(x, value){
 				var begin = loopBegin;
 				for (var i = 0; i < x; i++) {
@@ -87,6 +86,11 @@ function ifLoopContainDuplicate(list){
 	}else
 		throw Error('does not contain a loop');
 }
+
+
+
+
+
 
 
 

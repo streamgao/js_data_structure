@@ -35,6 +35,7 @@ BSTree.prototype.push = function(value) {
 	}
 	return this;
 };
+
 BSTree.prototype.createByArray = function(arr){
 	for(var i of arr){
 		this.push(i);
@@ -44,19 +45,6 @@ BSTree.prototype.createByArray = function(arr){
 
 
 
-
-function contains(node,value){
-	if ( !node ) {
-		return false;
-	}else if( node.data == value ) {
-		return true;
-	}else if (node.data > value) {
-		return contains(node.lchild, value);
-	}else{
-		return contains(node.rchild, value);
-	}	
-}
-
 BSTree.prototype.contains = function(value){
 	if ( !this.root ) {
 		throw Error('tree is empty!');
@@ -64,6 +52,19 @@ BSTree.prototype.contains = function(value){
 		return true;
 	}else{
 		return contains(this.root, value);
+	}
+
+
+	function contains(node,value){
+		if ( !node ) {
+			return false;
+		}else if( node.data == value ) {
+			return true;
+		}else if (node.data > value) {
+			return contains(node.lchild, value);
+		}else{
+			return contains(node.rchild, value);
+		}	
 	}
 }
 
@@ -196,14 +197,19 @@ BSTree.prototype.BFSNoRecurse = function(func, bind){
 	//then begin the algorithm
 	var queue = []; //remember queue can just be implemented with push and shift
 	var current = this.root;
+	var count = 0;
+	var size = this.size();
 
-	this.execFunc(func, bind, current);
-	current.visited = true;
-	var count=0;
-
-//can't use while queue is empty to end the loop. 
+//can't use while queue is empty to end the loop. use a count instead
 //i.e. an unbalanced subtree of nodes 10, 11, 12 where 10 is the parent
-	while( current && count<this.size() ){  
+	while( current && count<=size ){  
+		if ( !current.visited ) {
+			queue.push(current);
+			this.execFunc(func, bind, current);
+			current.visited = true;
+			count++;
+		}
+
 		if ( current.lchild && !current.lchild.visited ) {
 			this.execFunc(func, bind, current.lchild);
 			queue.push(current.lchild);
@@ -217,12 +223,7 @@ BSTree.prototype.BFSNoRecurse = function(func, bind){
 		}else{
 			current = queue.shift();
 		}
-		if ( !current.visited ) {
-			queue.push(current);
-			this.execFunc(func, bind, current);
-			current.visited = true;
-			count++;
-		}
+
 	}//while
 }
 

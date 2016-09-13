@@ -1,4 +1,7 @@
-/*Created by Stream Gao at 09-04-2016*/
+/*
+Linkedlist relevant interview questions and answers
+Created by Stream Gao at 09-04-2016
+*/
 
 //1. detect a loop in a linkedlist
 //Floyd's algorithm for cycle detection.
@@ -85,6 +88,57 @@ function ifLoopContainDuplicate(list){
 		return false;
 	}else
 		throw Error('does not contain a loop');
+}
+
+
+
+//remove duplicates in a linkedlist without additional buffer -- O(N2) 
+function duplicateRemovalNoBuffer(list){
+	var detect = list.head.next || null;
+	var beforeDetect = list.head;
+
+	while( detect ){
+		var newCur = list.head;
+
+		//stop until detect a duplicate. note that you need to check newCur first
+		while( (newCur) && (detect.data != newCur.data) && (detect != newCur)) {
+			newCur = newCur.next;
+		}
+		if ( (newCur) && (detect.data == newCur.data) && (detect != newCur))  {
+			//if duplicate, remove detect
+			beforeDetect.next = detect.next;
+			list._length--;
+		}else{
+			beforeDetect = detect;	
+		}
+		detect = detect.next;
+	}
+	return list;
+}
+
+
+
+//remove duplicates in a linkedlist with additional buffer -- O(N) 
+//use hash
+function duplicateRemovalHash(list){
+	if (list.head) {
+		var detect = list.head.next || null,
+			beforeDetect = list.head,
+			hash = {};
+		hash[list.head.data] = 1;
+		while(detect){
+			if ( !hash[detect.data] ) { //if no key
+				hash[detect.data] = 1;
+				beforeDetect = detect;
+			}else{
+				//if duplicate, remove the detect
+				beforeDetect.next = detect.next;
+				list._length--;
+			}
+			detect = detect.next;
+		}	
+	}
+	return list;
 }
 
 

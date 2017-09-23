@@ -1,9 +1,9 @@
-data structure in javascript version
+# data structure in javascript version
 
-linked list and double linked list:
-example:
+## linked list
+- example:
+```
 var list = new LinkedList();
-
 
 list.add(1); //add from the head
 
@@ -20,13 +20,15 @@ list.deleteByVal(value);
 list.deleteByPos(position);
 
 liset.reverse(); //reverse the linkedlist
+```
 
 
 
 
 
-
-
+## Double linked list 
+- example:
+```
 var list = new DoubleLinkedList();
 
 list.add(1);//add from the head
@@ -44,6 +46,6 @@ list.deleteByVal(value);
 list.deleteByPos(position);
 
 liset.reverse();//reverse the linkedlist
-
+```
 
 
